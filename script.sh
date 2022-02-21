@@ -44,8 +44,9 @@ while [ "$1" != "" ]; do
 
     -d | --display)
 
-        local FILE_COUNT=1
-        local TAG_COUNT=1
+        FILE_COUNT=1
+        TAG_COUNT=1
+
         while IFS= read -r line || [[ -f $line ]]; do
             FILENAME=$(echo -e "$line" | awk -F "." '{print $2}' | awk -F "/" '{print $3}')
             echo -e "${BLUE}[${LIGHT_YELLOW}$FILE_COUNT${BLUE}]${CYAN} \ue27c  ${PURPLE} $FILENAME${ENDCOLOR}"
@@ -68,10 +69,11 @@ while [ "$1" != "" ]; do
     -s | --searching)
         shift 2
         SEARCHING_TAG=$1
-        cat ./artifacts.txt | grep "$1" >./search.txt
+        cat ./artifacts.txt | grep -iF "$1" >./search.txt
         input2="./search.txt"
         while IFS= read -r line || [[ -f $line ]]; do
-            echo -e "${BLUE}[${LIGHT_YELLOW}$SEARCHING_TAG${BLUE}]${CYAN} \ue27c  ${PURPLE} $line${ENDCOLOR}"
+            search_output=$(echo -e "$line" | grep -iF "$1" | awk -F "." '{print $3}')
+            echo -e "${BLUE}[${LIGHT_YELLOW}$SEARCHING_TAG${BLUE}]${CYAN} \ue27c  ${PURPLE} $line${ENDCOLOR}: ${LIGHT_YELLOW}$search_output${ENDCOLOR}"
         done <"$input2"
 
         exit 1
