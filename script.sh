@@ -25,9 +25,12 @@ usage() {
 usage: $0 options iprange
 
 OPTIONS:
-   -a      set a option
-   -b      set b option
-   -r      set rangei, e.g 1 10
+   -h, --help           show this help.
+   -d, --display        display all tags for list of files in a given directory.
+   -s, --searching      searching for a tag in a list of files in a given directory.
+   -e, --export         export all tags for list of files in a given directory.
+   -w, --write-tags     write all tags for list of files in a given directory.
+
 EOF
 }
 
@@ -39,7 +42,7 @@ while [ "$1" != "" ]; do
 
     case $1 in
 
-    -f | --file)
+    -d | --display)
 
         local FILE_COUNT=1
         local TAG_COUNT=1
@@ -74,10 +77,6 @@ while [ "$1" != "" ]; do
     -h | --help)
         usage
         exit
-        ;;
-    -t | --test)
-        testing
-        exit 1
         ;;
     -e | --export)
         shift
