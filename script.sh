@@ -60,6 +60,8 @@ while [ "$1" != "" ]; do
             TAG_COUNT=1
 
         done <"$input"
+        notification_command="display notification \" Tag Extraction of directory\n ... $2\" with title \"macosTags\" "
+        osascript -e "$notification_command"
         exit 1
 
         ;;
